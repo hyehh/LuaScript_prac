@@ -1,0 +1,307 @@
+{\rtf1\ansi\ansicpg949\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset129 AppleSDGothicNeo-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\fs26 \cf0 function foo0 () end\
+function foo1 () return "a" end\
+function foo2 () return "a", "b" end\
+\
+function foo (i)\
+  if i == 0 then return foo0()\
+  elseif i == 1 then return foo1()\
+  elseif i == 2 then return foo2()\
+  end\
+end\
+\
+print(foo(0))\
+print(foo(1))\
+print(foo(2))\
+print(foo(3))\
+\
+print((foo0()))\
+print((foo1()))\
+print((foo2()))\
+\
+function unpack (t, i, n)\
+  i = i or 1\
+  n = n or #t\
+  if i <= n then\
+    return t[i], unpack(t, i + 1, n)\
+  end\
+end\
+\
+ta = \{2, 3, 4, 5, 6, 7\}\
+print(unpack(ta, 1, 3))\
+print(unpack(ta))\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 function add (...)\
+  local s = 0\
+  for i, v in ipairs \{...\} do\
+    s = s + v\
+  end\
+  return s\
+end\
+\
+print(add(3, 4, 10, 25, 12))\
+\
+t = \{ 0, 1, 2, name= '
+\f1 \'b1\'e8\'c8\'f1\'b1\'d4
+\f0 ', age= 17, school= 'Sunrin Internet Highschool' \} \
+\
+print('-- pairs') \
+for k, v in pairs(t) do \
+  print(k, v) \
+end \
+\
+print('-- ipairs') \
+for i, v in ipairs(t) do \
+  print(i, v) \
+end\
+\
+local a = 0\
+local b = 0\
+local c = 0\
+\
+a = 11\
+b = a + 1\
+c = a + b + 1\
+print(a, b, c)\
+\
+a, b, c = ...\
+\
+print(a, b, c)\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 function id (...)\
+  return ... \
+end\
+\
+print(id(2, 3, 4, 11))\
+\
+function foo (...)\
+  local a, b, c = ...\
+  print(a, b, c)\
+end\
+\
+foo(1, 2, 44, 5)\
+\
+function fwrite (fmt, ...)\
+  return io.write(string.format(fmt, ...))\
+end\
+\
+fwrite("a")\
+fwrite("%s", "ddd")\
+fwrite("%d%d", 4, 5)\
+\
+function rename (arg)\
+  return os.rename(arg.old, arg.new)\
+end\
+\
+rename(\{old="temp.lua", new="temp1.lua"\})\
+rename\{old="temp.lua", new="temp1.lua"\}\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 function Window (options)\
+  if type(options.title) ~= "string" then\
+    error("no title")\
+  elseif type(options.width) ~= "number" then\
+    error("no width")\
+  elseif type(options.height) ~= "number" then\
+    error("no height")\
+  end\
+end\
+ \
+w = Window\{x=0, y=0, width=300, height=200, title="Lua", background="blue", border=true\}\
+\
+a = \{p = print\}\
+a.p("Hello World")\
+print = math.sin\
+a.p(print(1))\
+sin = a.p\
+sin(10, 20)\
+\
+network = \{\
+  \{name = "grauna", IP = "201.26.30.34"\},\
+  \{name = "arraial", IP = "210.26.30.23"\},\
+  \{name = "lua", IP = "210.26.23.12"\},\
+  \{name = "derain", IP = "210.26.23.20"\}\
+\}\
+table.sort(network, function (a,b) return (a.name > b.name) end)\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 function derivative (f, delta)\
+  delta = delta or 1e-4\
+  return function (x)\
+    return (f(x + delta) - f(x))/delta\
+  end\
+end\
+\
+c = derivative(math.sin)\
+print(math.cos(5.2), c(5.2))\
+print(math.cos(10), c(10))\
+\
+names = \{"Peter", "Paul", "Mary"\}\
+grades = \{Mary = 10, Paul = 7, Peter = 8\}\
+\
+function sortbygrade (names, grades)\
+  table.sort(names, function (n1, n2)\
+    return grades[n1] > grades[n2]\
+  end)\
+end\
+\
+function newCounter ()\
+  local i = 0\
+  return function ()\
+    i = i + 1\
+    return i\
+  end\
+end\
+\
+c1 = newCounter()\
+print(c1())\
+print(c1())\
+c1()\
+print(c1())\
+\
+c2 = newCounter()\
+print(c2())\
+print(c1())\
+print(c2())\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 do \
+  local oldSin = math.sin\
+  local k = math.pi/180\
+  math.sin = function (x)\
+    return oldSin(x*k)\
+  end\
+end\
+\
+do\
+  local oldOpen = io.open\
+  local access_OK = function (filename, mode)\
+  end\
+  io.open = function (filename, mode)\
+    if access_OK (filename, mode) then\
+      return oldOpen(filename, mode)\
+    else\
+      return nil, "access denied"\
+    end\
+  end\
+end\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 Lib = \{\}\
+Lib.foo = function (x, y) return x + y end\
+Lib.goo = function (x, y) return x - y end\
+Lib.soo = function (x, y) return x * y end\
+\
+print(Lib.foo(2, 3), Lib.goo(2, 3), Lib.soo(2, 3))\
+\
+Mib = \{\
+  foo = function (x, y) return x + y end,\
+  goo = function (x, y) return x - y end,\
+  soo = function (x, y) return x * y end\
+\}\
+\
+print(Mib.foo(2, 3), Mib.goo(2, 3), Mib.soo(2, 3))\
+\
+Jib = \{\}\
+function Jib.foo (x, y) return x + y end\
+function Jib.goo (x, y) return x - y end\
+function Jib.soo (x, y) return x * y end\
+\
+print(Jib.foo(2, 3), Jib.goo(2, 3), Jib.soo(2, 3))\
+\
+local f = function (params)\
+  print(params)\
+end\
+\
+print(f(22))\
+\
+local function f (params)\
+  print(params)\
+end\
+\
+print(f(22))\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 local fact\
+fact = function (n)\
+  if n == 0 then return 1\
+  else return n*fact(n-1)\
+  end\
+end\
+\
+print(fact(4))\
+\
+function foo (n)\
+  if n > 0 then return foo(n-1)\
+  end\
+end\
+\
+print(foo(22))\
+\
+function values (t)\
+  local i = 0\
+  return function () i = i + 1; return t[i] end\
+end\
+\
+t = \{10, 20, 30\}\
+iter = values(t)\
+while true do\
+  local element = iter()\
+  if element == nil then break end\
+  print(element)\
+end\
+\
+for element in values(t) do\
+  print(element)\
+end\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 function allwords()\
+  local line = io.read()\
+  local pos = 1\
+  return function()\
+    while line do\
+      local s, e = string.find(line, "%W+", pos)\
+      if s then \
+        pos = e + 1\
+        return string.sub(line, s, e)\
+      else\
+        line = io.read()\
+        pos = 1\
+      end\
+    end\
+    return nil\
+  end\
+end\
+\
+allwords()\
+\
+for word in allwords() do\
+  print(word)\
+end\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 t = \{1, 32, 34, 2, 3\}\
+for k, v in pairs(t) do print(k, v) end\
+\
+for line in io.lines() do\
+  io.write(line, "\\n")\
+end}
